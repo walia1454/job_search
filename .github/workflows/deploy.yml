@@ -23,7 +23,7 @@ jobs:
           script: |
             sudo su
             cd /var/www/
-            rm -rf job_search
+            sudo rm -rf job_search
             sudo git clone https://github.com/walia1454/job_search.git
             cd job_search
             FRONTEND_CONTAINER_ID=$(sudo docker ps -aqf "name=frontend")
