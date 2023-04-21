@@ -31,4 +31,4 @@ jobs:
               sudo docker container stop $FRONTEND_CONTAINER_ID
               sudo docker container rm $FRONTEND_CONTAINER_ID
             fi
-            sudo docker-compose -f docker-compose.prod.yml up -d --build
+            docker compose -f docker-compose.prod.yml up -d --build
