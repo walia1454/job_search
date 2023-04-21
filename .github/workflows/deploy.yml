@@ -26,9 +26,9 @@ jobs:
             rm -rf job_search
             sudo git clone https://github.com/walia1454/job_search.git
             cd job_search
-            FRONTEND_CONTAINER_ID=$(docker ps -aqf "name=frontend")
+            FRONTEND_CONTAINER_ID=$(sudo docker ps -aqf "name=frontend")
             if [ ! -z "$FRONTEND_CONTAINER_ID" ]; then
-              docker container stop $FRONTEND_CONTAINER_ID
-              docker container rm $FRONTEND_CONTAINER_ID
+              sudo docker container stop $FRONTEND_CONTAINER_ID
+              sudo docker container rm $FRONTEND_CONTAINER_ID
             fi
-            docker-compose -f docker-compose.prod.yml up -d --build
+            sudo docker-compose -f docker-compose.prod.yml up -d --build
