@@ -24,7 +24,7 @@ jobs:
             sudo su
             cd /var/www/
             rm -rf job_search
-            git clone https://github.com/walia1454/job_search.git
+            sudo git clone https://github.com/walia1454/job_search.git
             cd job_search
             FRONTEND_CONTAINER_ID=$(docker ps -aqf "name=frontend")
             if [ ! -z "$FRONTEND_CONTAINER_ID" ]; then
