@@ -21,6 +21,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo su
             cd /var/www/
             rm -rf job_search
             git clone https://github.com/walia1454/job_search.git
