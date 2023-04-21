@@ -1,0 +1,33 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      COMMIT_SHA: ${{ github.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to production
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /var/www/
+            rm -rf job_search
+            git clone https://github.com/walia1454/job_search.git
+            cd job_search
+            FRONTEND_CONTAINER_ID=$(docker ps -aqf "name=frontend")
+            if [ ! -z "$FRONTEND_CONTAINER_ID" ]; then
+              docker container stop $FRONTEND_CONTAINER_ID
+              docker container rm $FRONTEND_CONTAINER_ID
+            fi
+            docker-compose -f docker-compose.prod.yml up -d --build
